@@ -3,8 +3,6 @@ project(argus_challenge)
 
 set(CMAKE_CXX_STANDARD 17)
 
-
-
 find_package(ImageMagick COMPONENTS Magick++)
 if (NOT ${ImageMagick_Magick++_FOUND})
   message(FATAL_ERROR "ImageMagick not found. Look at https://imagemagick.org/")
@@ -30,8 +28,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MAGICK_CXX_FLAGS} ${MAGICK_LD_FLAGS}")
 add_subdirectory(Lib/rozhkovdmitrii-lib)
 add_subdirectory(Lib/argus-lib)
 
-add_executable(argus_challenge main.cpp App.cpp App.h)
-target_include_directories(argus_challenge PRIVATE .)
-target_link_libraries(argus_challenge argus-lib)
+add_executable(argus-magic-tool main.cpp App.cpp App.h)
+target_include_directories(argus-magic-tool PRIVATE .)
+target_link_libraries(argus-magic-tool argus-lib)
 
 

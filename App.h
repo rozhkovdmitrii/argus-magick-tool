@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------------------------------------------------
-// App - aggregates Argus challenge routines in one
+// App - aggregates all argus challenge routines in one
 // Created by Rozhkov Dmitrii rozhkovdmitrii@yandex.ru for Argus-soft on 09.08.2020.
 //----------------------------------------------------------------------------------------------------------------------
 #ifndef AppH
@@ -10,18 +10,25 @@
 //----------------------------------------------------------------------------------------------------------------------
 namespace Argus
 {
-class App
+//----------------------------------------------------------------------------------------------------------------------
+class App: public ICommandParserHandler
 {
 public:
   App();
-  int process();
+  void process();
 
 private:
   CommandProcessor _cmdProcessor;
   CommandParser _cmdParser;
+  
   static void printHint();
   bool readAndParseCommand();
+  
+  // ICommandParserHandler
+  void onCmd(const Command & cmd) override;
+  void onHelpCmd() const override;
 };
+//----------------------------------------------------------------------------------------------------------------------
 }
 //----------------------------------------------------------------------------------------------------------------------
 #endif //AppH
