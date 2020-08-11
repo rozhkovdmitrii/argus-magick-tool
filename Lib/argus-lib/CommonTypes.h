@@ -1,33 +1,32 @@
-
 #ifndef CommonTypesH
 #define CommonTypesH
-
+//----------------------------------------------------------------------------------------------------------------------
 #include <string>
 #include <map>
 #include <Magick++.h>
-
+//----------------------------------------------------------------------------------------------------------------------
 namespace Argus
 {
+//----------------------------------------------------------------------------------------------------------------------
 typedef std::map<std::string, Magick::Image> ImageMap;
-typedef std::optional<Magick::Image> OptionalImage;
-
-class Command
+//----------------------------------------------------------------------------------------------------------------------
+class ICommand
 {
 public:
-  virtual ~Command() {}
+  virtual ~ICommand() {}
   
   virtual void operator()(ImageMap & imageMap) const = 0;
   virtual std::string toString() const = 0;
 };
-
-
+//----------------------------------------------------------------------------------------------------------------------
 class ICommandParserHandler
 {
 public:
   virtual ~ICommandParserHandler() {}
-  virtual void onCmd(const Command & cmd) = 0;
+  virtual void onCmd(const ICommand & cmd) = 0;
+  virtual void onHelpCmd() const = 0;
 };
-
+//----------------------------------------------------------------------------------------------------------------------
 }
-
+//----------------------------------------------------------------------------------------------------------------------
 #endif //CommonTypesH
