@@ -30,7 +30,7 @@ bool App::readAndParseCommand()
   return _cmdParser.parseCmdLine(line);
 }
 //----------------------------------------------------------------------------------------------------------------------
-void App::onCmd(const Command & cmd)
+void App::onCmd(const ICommand & cmd)
 {
   _cmdProcessor.onCmd(cmd);
 }

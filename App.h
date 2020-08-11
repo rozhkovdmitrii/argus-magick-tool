@@ -25,7 +25,7 @@ private:
   bool readAndParseCommand();
   
   // ICommandParserHandler
-  void onCmd(const Command & cmd) override;
+  void onCmd(const ICommand & cmd) override;
   void onHelpCmd() const override;
 };
 //----------------------------------------------------------------------------------------------------------------------
