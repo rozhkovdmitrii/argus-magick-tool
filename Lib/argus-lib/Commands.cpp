@@ -12,10 +12,14 @@ void LoadCommand::operator()(ImageMap & imageMap) const
 {
   auto hint = imageMap.lower_bound(_dstImageName);
   if (hint != imageMap.end() && hint->first == _dstImageName)
+  {
     RD_LOG(INF) << "image: \"" << _dstImageName << "\" already exists - will be overwritten";
+    hint->second.read(_srcFile);
+  }
   else
-    hint = imageMap.emplace_hint(hint, ImageMap::value_type(_dstImageName, Magick::Image()));
-  hint->second.read(_srcFile);
+  {
+    imageMap.emplace_hint(hint, ImageMap::value_type(_dstImageName, Magick::Image(_srcFile)));
+  }
 }
 //----------------------------------------------------------------------------------------------------------------------
 std::string LoadCommand::toString() const
