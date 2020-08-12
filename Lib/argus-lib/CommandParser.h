@@ -1,13 +1,14 @@
+//----------------------------------------------------------------------------------------------------------------------
+// CommandParser - provides lexical command line analysis and creates appropriate commands
+// Created by Rozhkov Dmitrii rozhkovdmitrii@yandex.ru for Argus-soft on 09.08.2020.
+//----------------------------------------------------------------------------------------------------------------------
 #ifndef CommandParserH
 #define CommandParserH
 //----------------------------------------------------------------------------------------------------------------------
-#include <string>
-#include "CommonTypes.h"
-//----------------------------------------------------------------------------------------------------------------------
 namespace Argus
 {
-
-
+//----------------------------------------------------------------------------------------------------------------------
+class ICommandParserHandler;
 //----------------------------------------------------------------------------------------------------------------------
 class CommandParser
 {
@@ -26,6 +27,8 @@ private:
   bool checkIfResizeCmd(const std::string & cmdLine);
   bool checkIfQuitCmd(const std::string & cmdLine) const;
   bool checkIfHelpCmd(const std::string & cmdLine);
+  bool checkIfDisplayCmd(const std::string & cmdLine) const;
+  
   static bool getIntValueFromString(const std::string & numStr, int & num);
 };
 }

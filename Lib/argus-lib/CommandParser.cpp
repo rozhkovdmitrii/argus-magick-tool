@@ -1,10 +1,9 @@
-#include <iostream>
-#include <string>
 #include <regex>
 //----------------------------------------------------------------------------------------------------------------------
+#include "Log.h"
+#include "Commands.h"
+//----------------------------------------------------------------------------------------------------------------------
 #include "CommandParser.h"
-#include "CommonTypes.h"
-#include "Command.h"
 //----------------------------------------------------------------------------------------------------------------------
 namespace Argus
 {
@@ -17,14 +16,14 @@ bool CommandParser::parseCmdLine(const std::string & cmdLine)
 {
   if (checkIfQuitCmd(cmdLine))
   {
-    std::cout << "quit ..." << std::endl;
+    RD_LOG(INF) << "quit ...";
     return false;
   }
   if (checkIfLoadCmd(cmdLine)   || checkIfStoreCmd(cmdLine) || checkIfBlurCmd(cmdLine) ||
-      checkIfResizeCmd(cmdLine) || checkIfHelpCmd(cmdLine))
+      checkIfResizeCmd(cmdLine) || checkIfHelpCmd(cmdLine)  || checkIfDisplayCmd(cmdLine))
     return true;
   else
-    std::cerr << "Failed to parse sequential command: " << cmdLine << std::endl;
+    RD_LOG(WRN) << "Failed to parse command: \"" << cmdLine << "\"";
   return true;
 }
 //----------------------------------------------------------------------------------------------------------------------
@@ -56,10 +55,13 @@ bool CommandParser::checkIfBlurCmd(const std::string & cmdLine)
   std::smatch match;
   if (!std::regex_match(cmdLine, match, blurCmdRegex))
     return false;
-  int blurRadius;
-  if (!getIntValueFromString(match[3].str(), blurRadius))
+  int blurSize;
+  if (!getIntValueFromString(match[3].str(), blurSize))
+  {
+    RD_LOG(WRN) << "Failed to read blurRadius from: \"" << match[3].str() << "\"";
     return false;
-  //_handler.onBlurCmd(match[1].str(), match[2].str(), blurRadius);
+  }
+  _handler.onCmd(BlurCommand(match[1].str(), match[2].str(), blurSize));
   return true;
 }
 //----------------------------------------------------------------------------------------------------------------------
@@ -75,7 +77,7 @@ bool CommandParser::checkIfResizeCmd(const std::string & cmdLine)
   int newHeight;
   if (!getIntValueFromString(match[4].str(), newHeight))
     return false;
-  //_handler.onResizeCmd(match[1].str(), match[2].str(), newWidth, newHeight);
+  _handler.onCmd(ResizeCommand(match[1].str(), match[2].str(), newWidth, newHeight));
   return true;
 }
 //----------------------------------------------------------------------------------------------------------------------
@@ -86,7 +88,7 @@ bool CommandParser::getIntValueFromString(const std::string & numStr, int & num)
   }
   catch(const std::logic_error & e)
   {
-    std::cerr << "Failed to get number from: \"" << numStr << "\", " << e.what() << std::endl;
+    RD_LOG(WRN) << "Failed to get number from: \"" << numStr << "\", " << e.what();
     return false;
   }
   return true;
@@ -103,7 +105,17 @@ bool CommandParser::checkIfHelpCmd(const std::string & cmdLine)
   static const std::regex helpCmdRegex(R"(^\s*(:?help|h)\s*$)");
   if (!std::regex_match(cmdLine, helpCmdRegex))
     return false;
-  //_handler.onHelpCmd();
+  _handler.onHelpCmd();
+  return true;
+}
+//----------------------------------------------------------------------------------------------------------------------
+bool CommandParser::checkIfDisplayCmd(const std::string & cmdLine) const
+{
+  static const std::regex displayCmdRegex(R"(^\s*display\s+(\w+)\s*$)");
+  std::smatch match;
+  if (!std::regex_match(cmdLine, match, displayCmdRegex))
+    return false;
+  _handler.onCmd(DisplayCommand(match[1].str()));
   return true;
 }
 //----------------------------------------------------------------------------------------------------------------------
