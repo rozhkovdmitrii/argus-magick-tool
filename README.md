@@ -26,14 +26,16 @@ cmake .. && cmake --build .
 **load, ld**: load <name> <filename> 
 
 > ​               loads image from file
+>
 > ​                <name> - key value provides image in other commands
+>
 > ​                <filename> - file path to be loaded
 
 **store, s**: store <name> <filename> 
 
-> ​               stores image in file
-> ​                <name> - key value to get image
-> ​                <filename> - file path to save image to
+> ​               stores image in file<\br>
+> ​                <name> - key value to get image<\br>
+> ​                <filename> - file path to save image to<br>
 
 **blur**:       blur <from_name> <to_name> <size>
 
