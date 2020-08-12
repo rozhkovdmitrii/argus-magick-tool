@@ -29,30 +29,30 @@ cmake .. && cmake --build .
 - `<name>` - key value provides image in other commands
 - `<filename>` - file path to be loaded
 
-**store, s**: store <name> <filename> 
+**store, s**: store `<name>` `<filename>`
 
-> ​               stores image in file<\br>
-> ​                <name> - key value to get image<\br>
-> ​                <filename> - file path to save image to<br>
+- stores image in file
+`<name>` - key value to get image
+`<filename>` - file path to save image to
 
-**blur**:       blur <from_name> <to_name> <size>
+**blur**:       blur `<from_name>` `<to_name>` `<size>`
 
-> ​               apply blur effect to image
-> ​                <from_name> - key value to get image to be blured
-> ​                <to_name> - key value to put resulting image
-> ​                <size> - blur algorithm radius value
+- apply blur effect to image
+`<from_name>` - key value to get image to be blured
+`<to_name>` - key value to put resulting image
+`<size>` - blur algorithm radius value
 
-**resize**:   resize <from_name> <to_name> <new_width> <new_height>
+**resize**:   resize `<from_name>` `<to_name>` `<new_width>` `<new_height>`
 
-> ​              resizes image
-> ​               <from_name> - key value to get image to be resized
-> ​               <to_name> - key value to put resulting image
-> ​               <new_width> - new width size to resize <from_name>
-> ​               <new_height> - new height size to resize <from_name>
+resizes image
+`<from_name>` - key value to get image to be resized
+`<to_name>` - key value to put resulting image
+`<new_width>` - new width size to resize <from_name>
+`<new_height>` - new height size to resize <from_name>
 
-**display**: display <name>
+**display**: display `<name>`
 
-> ​             display image <name>
+display image `<name>`
 
 **exit, quit, q**: terminate program execution
 
