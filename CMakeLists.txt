@@ -8,7 +8,7 @@ if (NOT ${ImageMagick_Magick++_FOUND})
   message(FATAL_ERROR "ImageMagick not found. Look at https://imagemagick.org/")
 endif()
 
-find_program(MAGIC_CONFIG "Magick++-config" ${ImageMagick_EXECUTABLE_DIR})
+find_program(MAGICK_CONFIG "Magick++-config" ${ImageMagick_EXECUTABLE_DIR})
 if (${MAGICK_CONFIG} STREQUAL "")
   message(FATAL_ERROR "MagickConfig not found. Look at https://imagemagick.org/")
 endif()

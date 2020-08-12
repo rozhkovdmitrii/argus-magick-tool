@@ -37,7 +37,15 @@ void App::onCmd(const ICommand & cmd)
 //----------------------------------------------------------------------------------------------------------------------
 void App::onHelpCmd() const
 {
-  std::cout << "Commands: " << std::endl << std::endl;
+  std::cout << "Argus magick tool 1.0.0" << std::endl << std::endl;
+  std::cout << "Summary:" << std::endl;
+  std::cout << "  'argus-magic-tool' is a simple command-line utility that provides various basic image processing operations." << std::endl;
+  std::cout << "  Currently, loading, saving, blurring, resizing, and displaying operations are available." << std::endl;
+  std::cout << "  The 'argus-magic-tool' app was developed as part of the argus-soft challenge." << std::endl;
+  std::cout << "  It's based on Magick++ that is the object-oriented C++ API to the ImageMagick image-processing library" << std::endl;
+  std::cout << "  https://imagemagick.org/Magick++/" << std::endl << std::endl;
+  
+  std::cout << "Commands: " << std::endl;
   std::cout << "help, h:       print this message" << std::endl;
   std::cout << std::endl;
   std::cout << "load, ld:      load <name> <filename> " << std::endl;
