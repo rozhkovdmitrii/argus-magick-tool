@@ -25,10 +25,9 @@ cmake .. && cmake --build .
 
 **load, ld**: load <name> <filename> 
 
-> ​               loads image from file
->
-> ​                <name> - key value provides image in other commands
->
+> loads image from file
+> <name> - key value provides image in other commands
+
 > ​                <filename> - file path to be loaded
 
 **store, s**: store <name> <filename> 
