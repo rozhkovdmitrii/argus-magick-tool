@@ -1,22 +1,22 @@
-//----------------------------------------------------------------------------------------------------------------------
-#include <iostream>
+#include "Log.h"
 //----------------------------------------------------------------------------------------------------------------------
 #include "CommandProcessor.h"
 //----------------------------------------------------------------------------------------------------------------------
 namespace Argus
 {
-void CommandProcessor::onCmd(const Command & cmd)
+void CommandProcessor::onCmd(const ICommand & cmd)
 {
   try
   {
     cmd(_imageMap);
-    std::cout << "Command performed: " << cmd.toString() << std::endl;
+    RD_LOG(INF) << "Command performed: " << cmd.toString();
   } catch (const Magick::Exception & e)
   {
-    std::cerr << "Unexpected Magick++ exception: " << e.what();
+    RD_LOG(WRN) << "Unexpected Magick++ error: " << e.what();
+  } catch (const std::logic_error & e)
+  {
+    RD_LOG(WRN) << "Unexpected logic error: " << e.what();
   }
-  
 }
-
 //----------------------------------------------------------------------------------------------------------------------
 }

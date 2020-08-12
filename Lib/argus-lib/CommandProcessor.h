@@ -1,20 +1,19 @@
 //----------------------------------------------------------------------------------------------------------------------
-// App - aggregates Argus challenge routines in one
+// CommandProcessor - applies sequential command on ImageMap
 // Created by Rozhkov Dmitrii rozhkovdmitrii@yandex.ru for Argus-soft on 09.08.2020.
 //----------------------------------------------------------------------------------------------------------------------
 #ifndef CommandProcessorH
 #define CommandProcessorH
-
+//----------------------------------------------------------------------------------------------------------------------
 #include "CommonTypes.h"
 //----------------------------------------------------------------------------------------------------------------------
 namespace Argus
 {
 //----------------------------------------------------------------------------------------------------------------------
-class CommandProcessor : public ICommandParserHandler
+class CommandProcessor
 {
 public:
-  // ICommandParserHandler
-  void onCmd(const Command & cmd) override;
+  void onCmd(const ICommand & cmd);
   
 private:
   ImageMap _imageMap;
