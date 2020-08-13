@@ -80,4 +80,4 @@ quit ...
 
 ## Build environment
 
-`argus-magick-too` was built on `Arch GNU/Linux 5.7.12` with `g++ (GCC) 10.1.0`, `cmake 3.18.1`, `imagemagick 7.0.10.25-1`
+`argus-magick-tool` was built on `Arch GNU/Linux 5.7.12` with `g++ (GCC) 10.1.0`, `cmake 3.18.1`, `imagemagick 7.0.10.25-1`
