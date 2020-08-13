@@ -12,12 +12,10 @@ void CommandProcessor::onCmd(const ICommand & cmd)
     RD_LOG(INF) << "Command performed: " << cmd.toString();
   } catch (const Magick::Exception & e)
   {
-    RD_LOG(WRN) << "Unexpected Magick++ error: " << e.what();
-    RD_LOG(WRN) << "Command: " << cmd.toString();
+    RD_LOG(WRN) << "Unexpected Magick++ error: " << e.what() << " while command being processed: " << cmd.toString();
   } catch (const std::logic_error & e)
   {
-    RD_LOG(WRN) << "Unexpected logic error: " << e.what();
-    RD_LOG(WRN) << "Command: " << cmd.toString();
+    RD_LOG(WRN) << "Unexpected logic error: " << e.what() << " while command being processed: " << cmd.toString();
   }
 }
 //----------------------------------------------------------------------------------------------------------------------
