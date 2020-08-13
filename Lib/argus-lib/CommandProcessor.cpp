@@ -13,9 +13,11 @@ void CommandProcessor::onCmd(const ICommand & cmd)
   } catch (const Magick::Exception & e)
   {
     RD_LOG(WRN) << "Unexpected Magick++ error: " << e.what();
+    RD_LOG(WRN) << "Command: " << cmd.toString();
   } catch (const std::logic_error & e)
   {
     RD_LOG(WRN) << "Unexpected logic error: " << e.what();
+    RD_LOG(WRN) << "Command: " << cmd.toString();
   }
 }
 //----------------------------------------------------------------------------------------------------------------------
