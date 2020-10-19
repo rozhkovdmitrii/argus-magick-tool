@@ -1,4 +1,3 @@
-#include "Log.h"
 #include "ExceptionStream.h"
 //----------------------------------------------------------------------------------------------------------------------
 #include "Commands.h"
@@ -6,14 +5,14 @@
 namespace Argus
 {
 //----------------------------------------------------------------------------------------------------------------------
-LoadCommand::LoadCommand(const std::string & dstImageName, const std::string & srcFile) : _dstImageName(dstImageName), _srcFile(srcFile) {}
+LoadCommand::LoadCommand(const std::string & dstImageName, const std::string & srcFile) : LoggedObject("LoadCommand"), _dstImageName(dstImageName), _srcFile(srcFile) {}
 //----------------------------------------------------------------------------------------------------------------------
 void LoadCommand::operator()(ImageMap & imageMap) const
 {
   auto hint = imageMap.lower_bound(_dstImageName);
   if (hint != imageMap.end() && hint->first == _dstImageName)
   {
-    RD_LOG(INF) << "image: \"" << _dstImageName << "\" already exists - will be overwritten";
+    TRACE(INF) << "image: \"" << _dstImageName << "\" already exists - will be overwritten";
     hint->second.read(_srcFile);
   }
   else
@@ -29,7 +28,10 @@ std::string LoadCommand::toString() const
   return oss.str();
 }
 //----------------------------------------------------------------------------------------------------------------------
-StoreCommand::StoreCommand(const std::string & srcImageName, const std::string & dstFile) : _srcImageName(srcImageName), _dstFile(dstFile) {}
+StoreCommand::StoreCommand(const std::string & srcImageName, const std::string & dstFile) :
+  LoggedObject("StoreCommand"),
+  _srcImageName(srcImageName),
+  _dstFile(dstFile) {}
 //----------------------------------------------------------------------------------------------------------------------
 void StoreCommand::operator()(ImageMap & imageMap) const
 {
@@ -46,7 +48,9 @@ std::string StoreCommand::toString() const
   return oss.str();
 }
 //----------------------------------------------------------------------------------------------------------------------
-DisplayCommand::DisplayCommand(const std::string & imageName) : _imageName(imageName) {}
+DisplayCommand::DisplayCommand(const std::string & imageName) :
+  LoggedObject("DisplayCommand"),
+  _imageName(imageName) {}
 //----------------------------------------------------------------------------------------------------------------------
 void DisplayCommand::operator()(ImageMap & imageMap) const
 {
@@ -64,6 +68,7 @@ std::string DisplayCommand::toString() const
 }
 //----------------------------------------------------------------------------------------------------------------------
 BlurCommand::BlurCommand(const std::string & srcImageName, const std::string & dstImageName, int blurSize) :
+  LoggedObject("BlurCommand"),
   _srcImageName(srcImageName),
   _dstImageName(dstImageName),
   _blurSize(blurSize)
@@ -78,7 +83,7 @@ void BlurCommand::operator()(ImageMap & imageMap) const
   
   auto hint = imageMap.lower_bound(_dstImageName);
   if (hint != imageMap.end() && hint->first == _dstImageName)
-    RD_LOG(INF) << "image: \"" << _dstImageName << "\" already exists - will be overwritten";
+    TRACE(INF) << "image: \"" << _dstImageName << "\" already exists - will be overwritten";
   else
     hint = imageMap.emplace_hint(hint, ImageMap::value_type(_dstImageName, Magick::Image()));
   
@@ -94,7 +99,11 @@ std::string BlurCommand::toString() const
 }
 //----------------------------------------------------------------------------------------------------------------------
 ResizeCommand::ResizeCommand(const std::string & srcImageName, const std::string & dstImageName, int newWidht, int newHeight) :
-  _srcImageName(srcImageName), _dstImageName(dstImageName), _newWidth(newWidht), _newHeight(newHeight)
+  LoggedObject("ResizeCommand"),
+  _srcImageName(srcImageName),
+  _dstImageName(dstImageName),
+  _newWidth(newWidht),
+  _newHeight(newHeight)
 {
 }
 //----------------------------------------------------------------------------------------------------------------------
@@ -105,7 +114,7 @@ void ResizeCommand::operator()(ImageMap & imageMap) const
     RD_THROW(std::logic_error) << "Failed to blur, srcImage not found by name: \"" << _srcImageName << "\"";
   auto hint = imageMap.lower_bound(_dstImageName);
   if (hint != imageMap.end() && hint->first == _dstImageName)
-    RD_LOG(INF) << "image: \"" << _dstImageName << "\" already exists - will be overwritten";
+    TRACE(INF) << "image: \"" << _dstImageName << "\" already exists - will be overwritten";
   else
     hint = imageMap.emplace_hint(hint, ImageMap::value_type(_dstImageName, Magick::Image()));
   

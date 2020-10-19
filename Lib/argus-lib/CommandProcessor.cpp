@@ -1,4 +1,3 @@
-#include "Log.h"
 //----------------------------------------------------------------------------------------------------------------------
 #include "CommandProcessor.h"
 //----------------------------------------------------------------------------------------------------------------------
@@ -9,13 +8,13 @@ void CommandProcessor::onCmd(const ICommand & cmd)
   try
   {
     cmd(_imageMap);
-    RD_LOG(INF) << "Command performed: " << cmd.toString();
+    TRACE(INF) << "Command performed: " << cmd.toString();
   } catch (const Magick::Exception & e)
   {
-    RD_LOG(WRN) << "Unexpected Magick++ error: " << e.what() << " while command was being processed: " << cmd.toString();
+    TRACE(WRN) << "Unexpected Magick++ error: " << e.what() << " while command was being processed: " << cmd.toString();
   } catch (const std::logic_error & e)
   {
-    RD_LOG(WRN) << "Unexpected logic error: " << e.what() << " while command being was processed: " << cmd.toString();
+    TRACE(WRN) << "Unexpected logic error: " << e.what() << " while command being was processed: " << cmd.toString();
   }
 }
 //----------------------------------------------------------------------------------------------------------------------

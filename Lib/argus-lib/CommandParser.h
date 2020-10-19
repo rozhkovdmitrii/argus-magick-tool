@@ -10,7 +10,7 @@ namespace Argus
 //----------------------------------------------------------------------------------------------------------------------
 class ICommandParserHandler;
 //----------------------------------------------------------------------------------------------------------------------
-class CommandParser
+class CommandParser : protected rozhkovdmitrii::LoggedObject
 {
 public:
   CommandParser(ICommandParserHandler & handler);
@@ -29,7 +29,7 @@ private:
   bool checkIfHelpCmd(const std::string & cmdLine);
   bool checkIfDisplayCmd(const std::string & cmdLine) const;
   
-  static bool getIntValueFromString(const std::string & numStr, int & num);
+  bool getIntValueFromString(const std::string & numStr, int & num) const;
 };
 }
 //----------------------------------------------------------------------------------------------------------------------

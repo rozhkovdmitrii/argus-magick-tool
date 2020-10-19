@@ -5,14 +5,16 @@
 #ifndef CommandProcessorH
 #define CommandProcessorH
 //----------------------------------------------------------------------------------------------------------------------
+#include "Log.h"
 #include "CommonTypes.h"
 //----------------------------------------------------------------------------------------------------------------------
 namespace Argus
 {
 //----------------------------------------------------------------------------------------------------------------------
-class CommandProcessor
+class CommandProcessor : protected rozhkovdmitrii::LoggedObject
 {
 public:
+  CommandProcessor() : LoggedObject("CommandProcessor") {}
   void onCmd(const ICommand & cmd);
   
 private:

@@ -8,7 +8,9 @@
 namespace Argus
 {
 //----------------------------------------------------------------------------------------------------------------------
-CommandParser::CommandParser(ICommandParserHandler & handler) : _handler(handler)
+CommandParser::CommandParser(ICommandParserHandler & handler) :
+  LoggedObject("CommandParser"),
+  _handler(handler)
 {
 }
 //----------------------------------------------------------------------------------------------------------------------
@@ -16,14 +18,14 @@ bool CommandParser::parseCmdLine(const std::string & cmdLine)
 {
   if (checkIfQuitCmd(cmdLine))
   {
-    RD_LOG(INF) << "quit ...";
+    TRACE(INF) << "quit ...";
     return false;
   }
   if (checkIfLoadCmd(cmdLine)   || checkIfStoreCmd(cmdLine) || checkIfBlurCmd(cmdLine) ||
       checkIfResizeCmd(cmdLine) || checkIfHelpCmd(cmdLine)  || checkIfDisplayCmd(cmdLine))
     return true;
   else
-    RD_LOG(WRN) << "Failed to parse command: \"" << cmdLine << "\"";
+    TRACE(WRN) << "Failed to parse command: \"" << cmdLine << "\"";
   return true;
 }
 //----------------------------------------------------------------------------------------------------------------------
@@ -58,7 +60,7 @@ bool CommandParser::checkIfBlurCmd(const std::string & cmdLine)
   int blurSize;
   if (!getIntValueFromString(match[3].str(), blurSize))
   {
-    RD_LOG(WRN) << "Failed to read blurRadius from: \"" << match[3].str() << "\"";
+    TRACE(WRN) << "Failed to read blurRadius from: \"" << match[3].str() << "\"";
     return false;
   }
   _handler.onCmd(BlurCommand(match[1].str(), match[2].str(), blurSize));
@@ -81,14 +83,14 @@ bool CommandParser::checkIfResizeCmd(const std::string & cmdLine)
   return true;
 }
 //----------------------------------------------------------------------------------------------------------------------
-bool CommandParser::getIntValueFromString(const std::string & numStr, int & num)
+bool CommandParser::getIntValueFromString(const std::string & numStr, int & num) const
 {
   try {
     num = std::stoi(numStr);
   }
   catch(const std::logic_error & e)
   {
-    RD_LOG(WRN) << "Failed to get number from: \"" << numStr << "\", " << e.what();
+    TRACE(WRN) << "Failed to get number from: \"" << numStr << "\", " << e.what();
     return false;
   }
   return true;

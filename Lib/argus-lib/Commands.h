@@ -5,12 +5,13 @@
 #ifndef CommandsH
 #define CommandsH
 //----------------------------------------------------------------------------------------------------------------------
+#include "Log.h"
 #include "CommonTypes.h"
 //----------------------------------------------------------------------------------------------------------------------
 namespace Argus
 {
 //----------------------------------------------------------------------------------------------------------------------
-class LoadCommand : public ICommand
+class LoadCommand : public ICommand, protected rozhkovdmitrii::LoggedObject
 {
 public:
   LoadCommand(const std::string & dstImageName, const std::string & srcFile);
@@ -24,7 +25,7 @@ private:
   const std::string _srcFile;
 };
 //----------------------------------------------------------------------------------------------------------------------
-class StoreCommand : public ICommand
+class StoreCommand : public ICommand, protected rozhkovdmitrii::LoggedObject
 {
 public:
   StoreCommand(const std::string & srcImageName, const std::string & dstFile);
@@ -38,7 +39,7 @@ private:
   const std::string _dstFile;
 };
 //----------------------------------------------------------------------------------------------------------------------
-class DisplayCommand : public ICommand
+class DisplayCommand : public ICommand, protected rozhkovdmitrii::LoggedObject
 {
 public:
   DisplayCommand(const std::string & imageName);
@@ -51,7 +52,7 @@ private:
   const std::string _imageName;
 };
 //----------------------------------------------------------------------------------------------------------------------
-class BlurCommand : public ICommand
+class BlurCommand : public ICommand, protected rozhkovdmitrii::LoggedObject
 {
 public:
   BlurCommand(const std::string & srcImageName, const std::string & dstImageName, int blurSize);
@@ -66,7 +67,7 @@ private:
   int _blurSize;
 };
 //----------------------------------------------------------------------------------------------------------------------
-class ResizeCommand : public ICommand
+class ResizeCommand : public ICommand, protected rozhkovdmitrii::LoggedObject
 {
 public:
   ResizeCommand(const std::string & srcImageName, const std::string & dstImageName, int newWidht, int newHeight);
